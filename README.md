@@ -25,9 +25,9 @@
    &nbsp;
 ## 3. 작품 시연
    [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/TKuDrxt8rrI/0.jpg)](https://www.youtube.com/watch?v=TKuDrxt8rrI)
-   &nbsp;
-   &nbsp;
-   ο 각 해당 기능 유튜브 설명란 참고 
+     &nbsp;
+     &nbsp;
+     <br>ο 각 해당 기능 유튜브 설명란 참고 
 
 &nbsp;
 &nbsp;
