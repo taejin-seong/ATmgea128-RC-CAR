@@ -27,7 +27,7 @@
    [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/TKuDrxt8rrI/0.jpg)](https://www.youtube.com/watch?v=TKuDrxt8rrI)
    &nbsp;
    &nbsp;
-   >> 해당 기능 유튜브 설명란 참고 <<
+   ο 각 해당 기능 유튜브 설명란 참고 
 
 &nbsp;
 &nbsp;
