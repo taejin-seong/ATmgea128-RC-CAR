@@ -26,6 +26,7 @@
 ## 3. 작품 시연
    [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/TKuDrxt8rrI/0.jpg)](https://www.youtube.com/watch?v=TKuDrxt8rrI)
    &nbsp;
+   ## 해당 기능 유튜브 설명란 참고
    
 ## 4. 참고 사이트
 https://jdselectron.tistory.com/15?category=730344
