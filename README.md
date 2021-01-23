@@ -1,5 +1,5 @@
 # 블루투스 통신 기반의 ATmgea128 MCU를 사용한 <br> MPU-6050, 조이스틱, 초음파센서 기반 자율주행 원격 RC카
-<br>2020년 3학년 1학기 프로젝트 <br><br> 개발환경: <b> <FONT face = "굴림" SIZE = 10 COLOR = 'red'> atmel studio6.2 또는 atmel studio7.0<b></FONT>
+<br>2020년 3학년 1학기 프로젝트 <br><br> 개발환경: <b> 　atmel studio6.2 또는 atmel studio7.0 <b>
 <br>
 <br>
 ## 1. 구상도
@@ -22,7 +22,7 @@
 <br>
 
 ## 2. 회로도 
-  ### 컨트롤러 부
+  ### 컨트롤러 부 (기본 회로및 센서 모듈 결선)
   ![2-1](https://user-images.githubusercontent.com/70312248/105470596-197bbe80-5cdd-11eb-8243-06489dc3aa7d.png)<hr>
   ![2-2](https://user-images.githubusercontent.com/70312248/105470606-1d0f4580-5cdd-11eb-86d7-db811fc3ee9d.png)<hr>
   ![2-3](https://user-images.githubusercontent.com/70312248/105470612-1e407280-5cdd-11eb-8fdc-b70d195e8a72.png)
@@ -33,7 +33,7 @@
 <br>
 <br>
    
-   ### RC카 부
+   ### RC카 부 (기본 회로및 센서 모듈 결선)
   ![1-1](https://user-images.githubusercontent.com/70312248/105471304-edad0880-5cdd-11eb-8fe6-400919ac7ad0.png)<hr>
   ![1-2](https://user-images.githubusercontent.com/70312248/105471310-eede3580-5cdd-11eb-896a-25cef1d87ffa.png) <hr>
   ![1-3](https://user-images.githubusercontent.com/70312248/105471318-ef76cc00-5cdd-11eb-91bf-04787c537d8a.png) <br><br>
