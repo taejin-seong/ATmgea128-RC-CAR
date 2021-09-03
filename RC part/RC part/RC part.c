@@ -96,7 +96,7 @@ int main(void)
 	{
 		SREG&=~0x80; val=sensor; SREG|=0x80;
 			
-			ch = U0_RX();
+			ch = USART0_Receive();
 			
 			if (ch == '0')
 			{
