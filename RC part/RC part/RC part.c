@@ -23,35 +23,64 @@ void Stop (void);
 
 volatile unsigned int  buf[8],dist[8],start=0,end=0;
 volatile unsigned char cnt=0,flag[8]={0,};
+volatile char sensor=0; // 초기값 검출안됨(직진)
+
 char ch ;
-unsigned char RX_flag=0;
-unsigned char rx_1;
 
-ISR(INT0_vect){ if(EICRA==0x03)start=TCNT1; else{ end=TCNT1; buf[0]=end-start; EIMSK=0; flag[0]=1; } EICRA^=0x01; }
-ISR(INT1_vect){ if(EICRA==0x0C)start=TCNT1; else{ end=TCNT1; buf[1]=end-start; EIMSK=0; flag[1]=1; } EICRA^=0x04; }
-ISR(INT4_vect){ if(EICRB==0x03)start=TCNT1; else{ end=TCNT1; buf[4]=end-start; EIMSK=0; flag[4]=1; } EICRB^=0x01; }
-ISR(USART0_RX_vect) {  rx_1=UDR0; RX_flag=1;}
+volatile uint16_t total_count;
 
-ISR(TIMER1_COMPA_vect)
+ISR(INT0_vect){
+	if(EICRA==0x03)start=TCNT1;
+	else
+	{
+		end=TCNT1; buf[0]=end-start; EIMSK=0;
+		if(buf[0]<588)sensor|=2; else sensor&=~2; // 가운데
+	}
+	EICRA^=0x01;
+}
+//
+ISR(INT1_vect){
+	if(EICRA==0x0C)start=TCNT1;
+	else
+	{
+		end=TCNT1; buf[1]=end-start; EIMSK=0;
+		if(buf[1]<588)sensor|=4; else sensor&=~4; // 왼쪽
+		
+	}
+	EICRA^=0x04;
+}
+//
+ISR(INT4_vect){
+	if(EICRB==0x03)start=TCNT1;
+	else
+	{
+		end=TCNT1; buf[4]=end-start; EIMSK=0;
+		if(buf[4]<588)sensor|=1; else sensor&=~1; // 오른쪽
+	}
+	EICRB^=0x01;
+}
+
+
+ISR(TIMER1_COMPA_vect)   //60ms 마다 인터럽트 발동되니 50번 발동되면 3초 60m*50=3
 {
-	switch(cnt){
+	total_count++;
+	
+	switch(cnt)
+	{
 		case 0: PORTA|=0x01; _delay_us(10); PORTA&=~0x01; EICRA=0x03; EICRB=0x00; EIFR=0xFF; EIMSK=0x01; break;
 		case 1: PORTA|=0x02; _delay_us(10); PORTA&=~0x02; EICRA=0x0C; EICRB=0x00; EIFR=0xFF; EIMSK=0x02; break;
-		case 4: PORTA|=0x19; _delay_us(10); PORTA&=~0x10; EICRA=0x00; EICRB=0x03; EIFR=0xFF; EIMSK=0x10; break;
+		case 2: PORTA|=0x10; _delay_us(10); PORTA&=~0x10; EICRA=0x00; EICRB=0x03; EIFR=0xFF; EIMSK=0x10; break;
 	}
-	if(++cnt>4)cnt=0;
+	if(++cnt>2)cnt=0;
 }
 int main(void)
 {
+	char val=0;
+	DDRE = 0x00;//echo
+	DDRA = 0xFF;//trig
+	DDRB = 0XFF;
 	
-
-	sbi(UCSR0B, RXCIE); // Enable Rx Interrupt
-	
-	DDRE = 0x00;//echo    낅젰 쇰줈  ㅼ젙
-	DDRA = 0xFF;//trig   異쒕젰 쇰줈  ㅼ젙
-
-	
-	TCCR1B=0x0C; OCR1A=1840; TIMSK=0x10; //8000000/256/(1+ 1840)=16.9744..==60ms
+	TCCR1B=0x0A; OCR1A=59999; TIMSK=0x10; //8000000/256/(1+ 1840)=16.9744..==60ms
 
 	timer0_init();
 	timer2_init();
@@ -59,62 +88,43 @@ int main(void)
 	USART1_Init(MYUBRR);
 	dfplayer_init();
 	
-	MP3_send_cmd(0X12,0,1);
+	total_count = 0;
 	
 	SREG=0x80;
 
 	while(1)
 	{
-		ch = USART0_Receive();
-		/////////////////
-		if (ch == '0')
-		{
-			Go_Straight();
-			if(flag[0])
-			{ flag[0]=0; dist[0]=(int)((float)buf[0]/1.8125);
-				if (dist[0]<=5)
+		SREG&=~0x80; val=sensor; SREG|=0x80;
+			
+			ch = U0_RX();
+			
+			if (ch == '0')
+			{
+				switch(val)
 				{
+					case 0b000: Go_Straight(); break; //  전진
+					
+					case 0b100: case 0b010: case 0b110:   // 우회전 왼쪽 장애물
 					Back();
-					_delay_ms(500);
-					Stop();
-					_delay_ms(100);
-					MP3_send_cmd(0X12,0,2); _delay_ms(2000);
+					total_count = 0;
+					while(total_count != 20); // 딜레이 1.2초
 					Turn_Right();
-					_delay_ms(500);
+					total_count = 0;
+					while(total_count != 20);
+					break;
 					
-				}
-			}
-			if(flag[1])
-			{ flag[1]=0; dist[1]=(int)((float)buf[1]/1.8125);
-				if (dist[1]<=5)
-				{
+					default:  // 좌회전 오른쪽 장애물
 					Back();
-					_delay_ms(500);
-					Stop(); _delay_ms(100);
-					MP3_send_cmd(0X12,0,2); _delay_ms(2000);
-					Turn_Right();
-					_delay_ms(500);
-					
-
-				}
-			}
-			if(flag[4])
-			{ flag[4]=0; dist[4]=(int)((float)buf[4]/1.8125);
-				if (dist[4]<=5)
-				{
-					Back();
-					_delay_ms(500);
-					Stop();   _delay_ms(100);
-					
-					MP3_send_cmd(0X12,0,2); _delay_ms(2000);
+					total_count = 0;
+					while(total_count != 20);
 					Turn_Left();
-					_delay_ms(500);
-					
+					total_count = 0;
+					while(total_count != 20);
 				}
 			}
 			
-		}
 		/////////////////
+		
 		if (ch == '8'){Go_Straight();}
 		if (ch == '2'){Back();}
 		if (ch == '4'){Turn_Left();}
@@ -125,16 +135,17 @@ int main(void)
 		/////////////////
 	}
 }
-
 void timer0_init(void){TCCR0 = 0b01101100;}
 void timer2_init(void){TCCR2 = 0b01101011;}
+	
+//OCR 값으로 PWM 조절 (속도) 255까지 가능
 void Turn_Right(void)
 {
-	sbi(PORTB,4);
+	OCR0=90;
 	sbi(PORTB,2);
 	cbi(PORTB,3);
 
-	sbi(PORTB,7);
+	OCR2=90;
 	cbi(PORTB,0);
 	sbi(PORTB,1);
 	
@@ -142,11 +153,11 @@ void Turn_Right(void)
 }
 void Turn_Left(void)
 {
-	sbi(PORTB,4);
+	OCR0=90;
 	cbi(PORTB,2);
 	sbi(PORTB,3);
 	
-	sbi(PORTB,7);
+	OCR2=90;
 	sbi(PORTB,0);
 	cbi(PORTB,1);
 	
@@ -154,11 +165,11 @@ void Turn_Left(void)
 }
 void Go_Straight(void)
 {
-	sbi(PORTB,4);
+	OCR0=90;
 	cbi(PORTB,2);
 	sbi(PORTB,3);
 
-	sbi(PORTB,7);
+	OCR2=90;
 	cbi(PORTB,0);
 	sbi(PORTB,1);
 	
@@ -166,26 +177,50 @@ void Go_Straight(void)
 }
 void Back(void)
 {
-	sbi(PORTB,4);
+	OCR0=90;
 	sbi(PORTB,2);
 	cbi(PORTB,3);
 	
-	sbi(PORTB,7);
+	OCR2=90;
 	sbi(PORTB,0);
 	cbi(PORTB,1);
 	
 	MP3_send_cmd(0X12,0,4);
 }
+
+void Turn_Back_Right(void)
+{
+	OCR0=110;
+	cbi(PORTB,2);
+	sbi(PORTB,3);
+	
+	OCR2=110;
+	sbi(PORTB,0);
+	cbi(PORTB,1);
+	
+	MP3_send_cmd(0X12,0,4);
+}
+
+void Turn_Back_Left(void)
+{
+	OCR0=110;
+	sbi(PORTB,2);
+	cbi(PORTB,3);
+	
+	OCR2=110;
+	cbi(PORTB,0);
+	sbi(PORTB,1);
+	
+	MP3_send_cmd(0X12,0,4);
+}
+
 void Stop(void)
 {
-	cbi(PORTB,4);
+	OCR0=0;
 	cbi(PORTB,2);
 	cbi(PORTB,3);
 
-	cbi(PORTB,7);
+	OCR2=0;
 	cbi(PORTB,0);
 	cbi(PORTB,1);
-	
-	
-	
 }
