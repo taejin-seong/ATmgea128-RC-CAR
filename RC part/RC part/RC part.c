@@ -138,7 +138,7 @@ int main(void)
 void timer0_init(void){TCCR0 = 0b01101100;}
 void timer2_init(void){TCCR2 = 0b01101011;}
 	
-//OCR 값으로 PWM 조절 (속도) 255까지 가능
+//OCR 값으로 PWM 조절 (속도) 255까지 가능 
 void Turn_Right(void)
 {
 	OCR0=90;
