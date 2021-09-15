@@ -61,10 +61,15 @@
 <br>
    
 ## 3. 작품 시연
-   [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/TKuDrxt8rrI/0.jpg)](https://www.youtube.com/watch?v=TKuDrxt8rrI) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="40%" src="https://user-images.githubusercontent.com/70312248/133422183-0759e38e-b749-4988-8bd1-45d6dbf6c26b.gif"/>
+   [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/TKuDrxt8rrI/0.jpg)](https://www.youtube.com/watch?v=TKuDrxt8rrI) 
      &nbsp;
      &nbsp;
-     <br>ο 각 해당 기능 유튜브 설명란 참고　　　　　　　　　　　　　　　　　&nbsp;&nbsp;ο IMU 모드 주행 영상 (배속효과X)
+     <br>ο 각 해당 기능 유튜브 설명란 참고
+ <br>
+ <br>
+ <br>
+ <img width="50%" src="https://user-images.githubusercontent.com/70312248/133422183-0759e38e-b749-4988-8bd1-45d6dbf6c26b.gif"/><br>
+ &nbsp;&nbsp;ο IMU 모드 주행 영상 (배속효과X)
 
 
 
@@ -82,15 +87,13 @@
    2. 예산 상의 문제로 저급 DC모터를 사용하여서 모터의 토크와 모터의 RPM이 원활하지 않음 조금더 고급사양의 모터로 교체 필요.
    
    3. 전체적으로 코드를 수정하고 다듬었으나, 수정된 파일이 소실되어 시간이 되면 전체적으로 다시 한번 다듬기 필요.
-   4. MPU-6050에 추가적으로 지자기 센서를 달아서 Yaw값도 제어 해볼만함.
+
+   4. 외형적으로 기구설계를 다듬어서 케이스를 씌우는 등의 보기 좋게 꾸며볼 필요가 있음.
    
-   5. 외형적으로 기구설계를 다듬어서 케이스를 씌우는 등의 보기 좋게 꾸며볼 필요가 있음.
+   5. PCB 기판의 사이즈를 좀더 소형화시켜볼 시도가 필요.
    
-   6. PCB 기판의 사이즈를 좀더 소형화시켜볼 시도가 필요.
+   6. 구조체 포인터등을 활용하여 좀더 고급스러운 코딩으로 메모리를 적게 할당하는 방안으로 수정할 필요.
    
-   7. 구조체 포인터등을 활용하여 좀더 고급스러운 코딩으로 메모리를 적게 할당하는 방안으로 수정할 필요.
-   
-   8. SW 알고리즘 순서도가 소실되어서 다시 작성 필요.
 
 
 <br>
