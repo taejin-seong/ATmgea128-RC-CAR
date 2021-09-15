@@ -64,7 +64,7 @@
    [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/TKuDrxt8rrI/0.jpg)](https://www.youtube.com/watch?v=TKuDrxt8rrI) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="45%" src="https://user-images.githubusercontent.com/70312248/133422183-0759e38e-b749-4988-8bd1-45d6dbf6c26b.gif"/>
      &nbsp;
      &nbsp;
-     <br>ο 각 해당 기능 유튜브 설명란 참고 
+     <br>ο 각 해당 기능 유튜브 설명란 참고　　　　　　　　　　　　　　　　　&nbsp;&nbsp;ο IMU 모드 주행 영상 (배속효과X)
 
 
 
