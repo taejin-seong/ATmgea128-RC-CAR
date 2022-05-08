@@ -113,17 +113,24 @@
 
 
 ## 작품 구현 영상
+<br>
+
+<div align="center">  
+ <b> [ 각 해당 기능 유튜브 설명란 참고 ]</b>  <br><br>
+   
+   [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/TKuDrxt8rrI/0.jpg)](https://www.youtube.com/watch?v=TKuDrxt8rrI)   
+
+</div>
 
 <br>
 
-* 각 해당 기능 유튜브 설명란 참고
-* **IMU 모드 주행 영상** 별도 첨부
-<p align="center">  
- 
-  [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/TKuDrxt8rrI/0.jpg)](https://www.youtube.com/watch?v=TKuDrxt8rrI)
- <img width="50%"  src="https://user-images.githubusercontent.com/70312248/133422183-0759e38e-b749-4988-8bd1-45d6dbf6c26b.gif">   
 
-</p>
+<div align="center">  
+ <b> [ IMU 모드 주행 영상 ]</b>  <br><br>
+   
+<img width="50%"  src="https://user-images.githubusercontent.com/70312248/133422183-0759e38e-b749-4988-8bd1-45d6dbf6c26b.gif">   
+
+</div>
 
 <br><br><br>
 
